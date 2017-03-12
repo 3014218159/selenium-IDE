@@ -1,0 +1,70 @@
+package triangle;
+
+
+public class triangle {
+
+    
+    public static String triangleshape(int a,int b, int c){
+    	if( (a + b) < c||(a - b) > c){
+    		return "error";
+    	}//判断是否符合三角形三条边的情况，即两边之和大于第三边，两边之差小于第三边；
+        if(a == b && a == c && b == c){
+            return "equilateral";
+        }//三条边相等即为等边三角形
+        else if(a == b || a == c || b == c){
+            return "isosceles";
+        }//任意两边相等即为等腰三角形，并且等边三角形也是等腰三角形
+        else{
+            return "scalene";
+        }//否则为不等边三角形
+        
+        
+        }
+    
+}
+
+package testTriangle;
+
+import static org.junit.Assert.*;
+
+import java.util.Arrays;
+import java.util.Collection;
+
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
+import org.junit.runners.Parameterized.Parameters;
+
+import triangle.triangle;
+
+@RunWith(Parameterized.class)
+public class testTriangle {
+
+    private int a;
+    private int b;
+    private int c;
+    private String expected;
+    public testTriangle(int a,int b, int c, String expected){
+        this.a = a;
+        this.b = b;
+        this.c = c;
+        this.expected= expected;
+        
+        }
+    
+    @Parameters
+    public static Collection<Object[]> getData(){
+    return Arrays.asList(new Object[][]{
+    {3,3,3,"equilateral"},
+    {1,2,3,"scalene"},
+    {5,5,7,"isosceles"},
+    {4,6,6,"isosceles"}
+    });
+    }
+    
+    @Test
+    public void test() {
+    assertEquals(this.expected,triangle.triangleshape(a,b,c));
+    }
+    
+}
